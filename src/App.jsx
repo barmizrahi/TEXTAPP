@@ -14,10 +14,7 @@ const TextAreaComponent = ({ readOnly }) => {
     sendTextToServer(event.target.value);
   };
   //TODO: DELETE THIS
-  const handleLogText = () => {
-    console.log('About to emit text',text);
-    sendTextToServer(text);
-  };
+
   return (
     <div>
       <textarea rows="4" cols="50" value={text} onChange={handleTextChange} readOnly={readOnly} />
@@ -32,34 +29,10 @@ const TextAreaComponent = ({ readOnly }) => {
 
 
 function StudentRoute() {
-  const [titles, setTitles] = useState([]); // State to store fetched titles
-
-  useEffect(() => {
-    // Fetch titles from the backend when the component mounts
-    const fetchTitles = async () => {
-      try {
-        const response = await axios.get('http://localhost:3001/codeblocks');
-        setTitles(response.data.map(codeBlock => codeBlock.title));
-      
-      } catch (error) {
-        console.error('Error fetching titles:', error);
-      }
-    };
-
-    fetchTitles(); // Call fetchTitles function when the component mounts
-  }, []); // Empty dependency array ensures useEffect runs only once on component mount
-
   return (
     <div>
       <h1>Student</h1>
-      {/* Map over the titles array and render a TaskButton component for each title */}
-      {titles.map((title, index) => (
-        <div key={index}>
-          <TaskButton title={'test'} onClickFunc={() => {}} />
-          <h1>index</h1> {/* You can adjust the layout as needed */}
-        </div>
-      ))}
-      {/* <TextAreaComponent readOnly={false} /> */}
+      <TextAreaComponent readOnly={false} />
     </div>
   );
 }
